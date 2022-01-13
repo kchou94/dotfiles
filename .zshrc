@@ -2,8 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
+# export ZSH="$HOME/.oh-my-zsh"
+# source $ZSH/oh-my-zsh.sh
 
 # ZPLUG
 export ZPLUG_HOME=/usr/local/opt/zplug
@@ -24,7 +24,7 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 
 # Supports oh-my-zsh plugins and the like
-zplug "plugins/git",   from:oh-my-zsh
+# zplug "plugins/git",   from:oh-my-zsh
 
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
@@ -35,7 +35,7 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # Load theme file
-zplug 'dracula/zsh', as:theme
+# zplug 'dracula/zsh', as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -65,7 +65,7 @@ alias tf="terraform"
 alias k="kubectl"
 
 # awscli completion
-complete -C '/usr/local/bin/aws_completer' aws
+# complete -C '/usr/local/bin/aws_completer' aws
 
 # terraform completion
 complete -o nospace -C /usr/local/bin/terraform terraform
@@ -75,8 +75,15 @@ source <(kubectl completion zsh)
 source <(helm completion zsh)
 
 # Go envs
-export GOPATH=$HOME/go
-export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+export GOVERSION=go1.17.6 # Go 版本设置
+export GO_INSTALL_DIR=$HOME/go # Go 安装目录
+export GOROOT=$GO_INSTALL_DIR/$GOVERSION # GOROOT 设置
+export GOPATH=$GO_INSTALL_DIR/golang # GOPATH 设置
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH # 将 Go 语言自带的和通过 go install 安装的二进制文件加入到 PATH 路径中
+# export GO111MODULE="on" # 开启 Go moudles 特性
+# export GOPROXY=https://goproxy.cn,direct # 安装 Go 模块时，代理服务器设置
+# export GOPRIVATE=
+# export GOSUMDB=off # 关闭校验 Go 依赖包的哈希值
 
 # direnv
 eval "$(direnv hook zsh)"
